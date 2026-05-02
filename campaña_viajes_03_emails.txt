@@ -1,0 +1,54 @@
+CAMPAÑA DE EMAIL MARKETING - VIAJES
+
+1. PLANTILLA: BIENVENIDA
+Asunto: ¡Bienvenido a Viajes [Nombre Agencia]!
+
+Hola [Nombre],
+
+Gracias por suscribirte a nuestra newsletter de viajes. Prepárate para descubrir los mejores destinos, ofertas exclusivas y consejos de viaje.
+
+Como regalo de bienvenida, te damos un 10% de descuento en tu primera reserva con el código BIENVENIDO10.
+
+👉 Explora nuestros destinos más populares aquí: [LINK]
+
+¡Nos vemos en el próximo viaje!
+
+Equipo de Viajes [Nombre Agencia]
+[Datos de contacto]
+
+2. PLANTILLA: OFERTA LIMITADA
+Asunto: ⚠️ Últimas 48 horas: 30% de descuento en paquetes a Brasil
+
+Hola [Nombre],
+
+¡No dejes pasar esta oportunidad! Reserva hoy mismo tu paquete a Río de Janeiro o São Paulo y obtén un 30% de descuento.
+
+✈️ Vuelos + hotel 4 estrellas + traslados
+📅 Válido para viajes entre mayo y agosto 2026
+⏰ La oferta expira el [Fecha]
+
+Usa el código BRASIL30 al reservar: [LINK]
+
+¡No esperes más, los cupos se agotan rápido!
+
+Equipo de Viajes [Nombre Agencia]
+
+3. PLANTILLA: CONFIRMACIÓN DE RESERVA
+Asunto: ✅ Tu reserva de viaje ha sido confirmada
+
+Hola [Nombre],
+
+¡Felicitaciones! Tu reserva ha sido confirmada con éxito. Aquí tienes los detalles:
+
+📍 Destino: [Destino]
+📅 Fechas: [Fecha Inicio] - [Fecha Fin]
+🏨 Hotel: [Nombre Hotel]
+✈️ Vuelo: [Número Vuelo] - [Fecha y Hora]
+
+Adjunto encontrarás tu itinerario completo y los vouchers de servicios.
+
+Si tienes alguna duda, responde a este correo o llámanos al [Teléfono].
+
+¡Esperamos que disfrutes mucho tu viaje!
+
+Equipo de Viajes [Nombre Agencia]

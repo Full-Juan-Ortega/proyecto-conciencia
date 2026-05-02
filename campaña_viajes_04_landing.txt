@@ -1,0 +1,31 @@
+COPY PARA LANDING PAGE - VIAJES
+
+1. SECCIÓN HERO
+Título: Viajes a medida, experiencias inolvidables
+Subtítulo: Descubre los mejores destinos con precios exclusivos, todo gestionado por expertos para que solo te preocupes por disfrutar.
+CTA: Reserva ahora → [Botón]
+
+2. CARACTERÍSTICAS
+- ✈️ Vuelos y hoteles incluidos en todos los paquetes
+- 🏨 Alojamiento en los mejores hoteles de cada destino
+- 🎯 Asesoramiento personalizado por expertos en viajes
+- 💰 Precios exclusivos que no encontrarás en otras agencias
+- 🛡️ Seguro de viaje incluido en todas las reservas
+
+3. TESTIMONIOS
+"¡La mejor experiencia de viaje que hemos tenido! Todo salió perfecto, desde los vuelos hasta el hotel. Recomendadísimos." - María y Juan, viaje a Cancún
+
+"Gracias a Viajes [Nombre] organizamos nuestras vacaciones familiares sin ningún estrés. Los niños lo pasaron increíble." - Familia García, viaje a Disney
+
+"El viaje de aventura a Mendoza fue espectacular, el equipo nos ayudó con todo. Volveré a reservar seguro." - Lucas, viaje de aventura
+
+4. FAQ
+¿Puedo cancelar mi reserva? Sí, cancelaciones gratuitas hasta 30 días antes del viaje.
+¿Incluye seguro de viaje? Sí, todos nuestros paquetes incluyen seguro básico de viaje.
+¿Puedo personalizar mi paquete? Por supuesto, nuestros asesores te ayudan a armar el viaje a tu medida.
+¿Cuáles son los medios de pago? Aceptamos tarjetas de crédito, débito, transferencias y pagos en cuotas.
+
+5. CTA FINAL
+¿Listo para tu próximo viaje?
+Reserva hoy mismo y obtén un 5% de descuento adicional con el código LANDING5.
+[Botón: Reservar ahora]
