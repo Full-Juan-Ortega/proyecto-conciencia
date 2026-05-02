@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conciencia Distribuidores de Luminarias</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+  :root{--amarillo:#F5C518;--negro:#1a1a1a;--gris:#f4f4f4;--texto:#222}
+  body{background:#f9f9f9;color:var(--texto)}
+  header{background:var(--negro);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+  .logo-area{display:flex;align-items:center;gap:12px}
+  .logo-text{color:#fff;font-size:22px;font-weight:900;letter-spacing:1px}
+  .logo-text span{color:var(--amarillo)}
+  .logo-sub{color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:2px}
+  .cart-btn{background:var(--amarillo);border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--negro)}
+  .cart-btn:hover{background:#e0b000}
+  .badge{background:var(--negro);color:var(--amarillo);border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+  .hero{background:var(--negro);color:#fff;padding:40px 24px;text-align:center}
+  .hero h1{font-size:28px;font-weight:900;margin-bottom:8px}
+  .hero h1 span{color:var(--amarillo)}
+  .hero p{color:#aaa;font-size:14px}
+  .section{padding:32px 24px;max-width:1100px;margin:0 auto}
+  .section h2{font-size:20px;font-weight:700;margin-bottom:20px;border-left:4px solid var(--amarillo);padding-left:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+  .card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e0e0e0;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+  .card-img{width:100%;height:160px;object-fit:contain;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:48px}
+  .card-body{padding:14px}
+  .card-body h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--negro)}
+  .card-body p{font-size:12px;color:#666;margin-bottom:10px;line-height:1.4}
+  .card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .precio{font-size:16px;font-weight:900;color:var(--negro)}
+  .precio span{font-size:11px;color:#888;font-weight:400}
+  .add-btn{background:var(--amarillo);border:none;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;color:var(--negro)}
+  .add-btn:hover{background:#e0b000}
+  .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:200}
+  .overlay.active{display:block}
+  .drawer{position:fixed;top:0;right:-420px;width:420px;max-width:100%;height:100%;background:#fff;z-index:201;transition:right .3s;display:flex;flex-direction:column;box-shadow:-4px 0 20px rgba(0,0,0,.15)}
+  .drawer.open{right:0}
+  .drawer-header{background:var(--negro);color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+  .drawer-header h2{font-size:16px;color:#fff}
+  .close-btn{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+  .drawer-items{flex:1;overflow-y:auto;padding:16px}
+  .empty{text-align:center;color:#aaa;margin-top:60px;font-size:14px}
+  .cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eee;align-items:center}
+  .ci-icon{font-size:28px;width:40px;text-align:center}
+  .ci-info{flex:1}
+  .ci-info h4{font-size:13px;font-weight:700;margin-bottom:2px}
+  .ci-info p{font-size:12px;color:#888}
+  .ci-controls{display:flex;align-items:center;gap:8px}
+  .qty-btn{background:#eee;border:none;width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;font-weight:700}
+  .qty-btn:hover{background:#ddd}
+  .qty-num{font-size:14px;font-weight:700;min-width:20px;text-align:center}
+  .rm-btn{background:none;border:none;color:#cc0000;cursor:pointer;font-size:18px;margin-left:4px}
+  .drawer-footer{padding:16px 20px;border-top:1px solid #eee;background:#fff}
+  .subtotal{display:flex;justify-content:space-between;margin-bottom:8px;font-size:14px}
+  .total{display:flex;justify-content:space-between;font-size:18px;font-weight:900;margin-bottom:16px}
+  .checkout-btn{width:100%;background:var(--amarillo);border:none;padding:14px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;color:var(--negro)}
+  .checkout-btn:hover{background:#e0b000}
+  .modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center}
+  .modal-bg.active{display:flex}
+  .modal{background:#fff;border-radius:16px;padding:28px;width:90%;max-width:500px;max-height:90vh;overflow-y:auto}
+  .modal h2{font-size:18px;font-weight:700;margin-bottom:20px;border-left:4px solid var(--amarillo);padding-left:10px}
+  .form-group{margin-bottom:14px}
+  .form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:4px;color:#555}
+  .form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;outline:none}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--amarillo)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .btn-group{display:flex;gap:10px;margin-top:20px}
+  .btn-cancel{flex:1;padding:12px;border:1px solid #ccc;border-radius:8px;background:#fff;cursor:pointer;font-size:14px}
+  .btn-send{flex:2;padding:12px;background:var(--amarillo);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;color:var(--negro)}
+  .btn-send:hover{background:#e0b000}
+  .btn-send:disabled{background:#ccc;cursor:not-allowed}
+  .success-box{text-align:center;padding:20px}
+  .success-icon{font-size:52px;margin-bottom:12px}
+  .success-box h2{font-size:20px;font-weight:700;margin-bottom:8px}
+  .success-box p{color:#666;font-size:14px;margin-bottom:20px}
+  .tag{display:inline-block;background:#fff7d6;color:#7a5c00;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;margin-bottom:6px}
+  footer{background:var(--negro);color:#aaa;text-align:center;padding:20px;font-size:12px;margin-top:40px}
+  footer span{color:var(--amarillo);font-weight:700}
+  @media(max-width:480px){.drawer{width:100%;right:-100%}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="19" cy="19" r="19" fill="#F5C518"/>
+      <circle cx="10" cy="10" r="2.5" fill="#1a1a1a"/>
+      <circle cx="28" cy="10" r="2.5" fill="#1a1a1a"/>
+      <circle cx="10" cy="28" r="2.5" fill="#1a1a1a"/>
+      <circle cx="28" cy="28" r="2.5" fill="#1a1a1a"/>
+      <circle cx="19" cy="5" r="2.5" fill="#1a1a1a"/>
+      <circle cx="19" cy="33" r="2.5" fill="#1a1a1a"/>
+      <circle cx="5" cy="19" r="2.5" fill="#1a1a1a"/>
+      <circle cx="33" cy="19" r="2.5" fill="#1a1a1a"/>
+      <line x1="10" y1="10" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="28" y1="10" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="10" y1="28" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="28" y1="28" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="19" y1="5" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="19" y1="33" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="5" y1="19" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <line x1="33" y1="19" x2="19" y2="19" stroke="#1a1a1a" stroke-width="1.5"/>
+      <ellipse cx="19" cy="19" rx="5" ry="7" fill="#1a1a1a"/>
+      <rect x="16.5" y="26" width="5" height="2" rx="1" fill="#1a1a1a"/>
+      <rect x="17.5" y="28" width="3" height="1.5" rx="0.5" fill="#F5C518"/>
+    </svg>
+    <div>
+      <div class="logo-text">CON<span>C</span>IENCIA</div>
+      <div class="logo-sub">Distribuidores de Luminarias</div>
+    </div>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Carrito <span class="badge" id="badge">0</span>
+  </button>
+</header>
+
+<div class="hero">
+  <h1>Iluminá tu negocio con <span>calidad mayorista</span></h1>
+  <p>Precios especiales para distribuidores y revendedores · Córdoba, Argentina</p>
+</div>
+
+<div class="section">
+  <h2>Catálogo de Productos</h2>
+  <div class="grid" id="catalogo"></div>
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <h2>Tu Pedido</h2>
+    <button class="close-btn" onclick="toggleCart()">×</button>
+  </div>
+  <div class="drawer-items" id="items-list">
+    <div class="empty">Tu carrito está vacío</div>
+  </div>
+  <div class="drawer-footer" id="drawer-footer" style="display:none">
+    <div class="subtotal"><span>Subtotal</span><span id="subtotal-val">$0</span></div>
+    <div class="total"><span>Total</span><span id="total-val">$0</span></div>
+    <button class="checkout-btn" onclick="openCheckout()">Confirmar Pedido →</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal-content">
+    <h2>Datos del Pedido</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Nombre *</label><input id="f-nombre" placeholder="Tu nombre" /></div>
+      <div class="form-group"><label>Empresa</label><input id="f-empresa" placeholder="Nombre del negocio" /></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Teléfono *</label><input id="f-tel" placeholder="Ej: 3512345678" type="tel"/></div>
+      <div class="form-group"><label>Localidad *</label><input id="f-local" placeholder="Ciudad / Localidad" /></div>
+    </div>
+    <div class="form-group"><label>Dirección de entrega</label><input id="f-dir" placeholder="Calle, número, piso..." /></div>
+    <div class="form-group"><label>Notas adicionales</label><textarea id="f-notas" rows="2" placeholder="Aclaraciones, urgencias, etc."></textarea></div>
+    <div class="btn-group">
+      <button class="btn-cancel" onclick="closeCheckout()">Cancelar</button>
+      <button class="btn-send" id="btn-enviar" onclick="enviarPedido()">Enviar Pedido</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><span>Conciencia</span> Distribuidores de Luminarias · Córdoba, Argentina</p>
+  <p style="margin-top:6px">Precios mayoristas · Consultas: WhatsApp</p>
+</footer>
+
+<script>
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwqzIIrChzROhtiYSHS1RT1buwSkAooQvTXJ76bfMbsQ_RqJQbfGMP2mhz4GC9jz1lFTw/exec";
+
+const productos = [
+  {id:1, emoji:"💡", nombre:"Lámpara LED 9W E27", desc:"Luz cálida/fría. Apta para interior. 800 lm.", precio:850, tag:"Más vendido"},
+  {id:2, emoji:"🔦", nombre:"Dicroico LED 7W GU10", desc:"Ideal para cocinas y comercios. 220V.", precio:1200, tag:""},
+  {id:3, emoji:"🏮", nombre:"Downlight Embutido 12W", desc:"Panel circular embutido. Luz neutra 4000K.", precio:2100, tag:"Oferta"},
+  {id:4, emoji:"🕯️", nombre:"Tira LED 5m RGB", desc:"Multicolor con control remoto. IP20.", precio:3500, tag:""},
+  {id:5, emoji:"🔆", nombre:"Reflector LED 30W", desc:"Exterior/interior. IP65. Luz blanca 6500K.", precio:4200, tag:""},
+  {id:6, emoji:"💡", nombre:"Lámpara Filamento 4W E27", desc:"Estilo vintage. Luz cálida 2700K.", precio:980, tag:"Nuevo"},
+  {id:7, emoji:"🔋", nombre:"Aplique LED 18W", desc:"Para exterior. IP44. Brazo ajustable.", precio:3800, tag:""},
+  {id:8, emoji:"✨", nombre:"Panel LED 48W 60x60", desc:"Para cielorraso desmontable. Luz fría.", precio:5500, tag:""},
+];
+
+let carrito = {};
+
+function renderCatalogo(){
+  const g = document.getElementById('catalogo');
+  g.innerHTML = productos.map(p=>`
+    <div class="card">
+      <div class="card-img">${p.emoji}</div>
+      <div class="card-body">
+        ${p.tag?`<div class="tag">${p.tag}</div>`:''}
+        <h3>${p.nombre}</h3>
+        <p>${p.desc}</p>
+        <div class="card-footer">
+          <div class="precio">$${p.precio.toLocaleString('es-AR')} <span>c/u</span></div>
+          <button class="add-btn" onclick="agregar(${p.id})">+ Agregar</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function agregar(id){
+  carrito[id] = (carrito[id]||0)+1;
+  actualizarUI();
+  if(!document.getElementById('drawer').classList.contains('open')){
+    const btn = document.querySelector('.cart-btn');
+    btn.style.transform='scale(1.15)';
+    setTimeout(()=>btn.style.transform='',200);
+  }
+}
+
+function quitar(id){
+  if(carrito[id]>1) carrito[id]--;
+  else delete carrito[id];
+  actualizarUI();
+}
+
+function eliminar(id){delete carrito[id];actualizarUI();}
+
+function actualizarUI(){
+  const total = Object.values(carrito).reduce((a,b)=>a+b,0);
+  document.getElementById('badge').textContent = total;
+  const list = document.getElementById('items-list');
+  const footer = document.getElementById('drawer-footer');
+  if(!total){
+    list.innerHTML='<div class="empty">Tu carrito está vacío</div>';
+    footer.style.display='none';
+    return;
+  }
+  footer.style.display='block';
+  let suma=0;
+  list.innerHTML = Object.keys(carrito).map(id=>{
+    const p = productos.find(x=>x.id==id);
+    const sub = p.precio * carrito[id];
+    suma+=sub;
+    return `<div class="cart-item">
+      <div class="ci-icon">${p.emoji}</div>
+      <div class="ci-info">
+        <h4>${p.nombre}</h4>
+        <p>$${p.precio.toLocaleString('es-AR')} c/u</p>
+      </div>
+      <div class="ci-controls">
+        <button class="qty-btn" onclick="quitar(${id})">−</button>
+        <span class="qty-num">${carrito[id]}</span>
+        <button class="qty-btn" onclick="agregar(${id})">+</button>
+        <button class="rm-btn" onclick="eliminar(${id})">×</button>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('subtotal-val').textContent='$'+suma.toLocaleString('es-AR');
+  document.getElementById('total-val').textContent='$'+suma.toLocaleString('es-AR');
+}
+
+function toggleCart(){
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('active');
+}
+
+function openCheckout(){
+  toggleCart();
+  document.getElementById('modal-bg').classList.add('active');
+}
+
+function closeCheckout(){
+  document.getElementById('modal-bg').classList.remove('active');
+  document.getElementById('modal-content').innerHTML = getFormHTML();
+}
+
+function getFormHTML(){
+  return `<h2>Datos del Pedido</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Nombre *</label><input id="f-nombre" placeholder="Tu nombre" /></div>
+      <div class="form-group"><label>Empresa</label><input id="f-empresa" placeholder="Nombre del negocio" /></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Teléfono *</label><input id="f-tel" placeholder="Ej: 3512345678" type="tel"/></div>
+      <div class="form-group"><label>Localidad *</label><input id="f-local" placeholder="Ciudad / Localidad" /></div>
+    </div>
+    <div class="form-group"><label>Dirección de entrega</label><input id="f-dir" placeholder="Calle, número, piso..." /></div>
+    <div class="form-group"><label>Notas adicionales</label><textarea id="f-notas" rows="2" placeholder="Aclaraciones, urgencias, etc."></textarea></div>
+    <div class="btn-group">
+      <button class="btn-cancel" onclick="closeCheckout()">Cancelar</button>
+      <button class="btn-send" id="btn-enviar" onclick="enviarPedido()">Enviar Pedido</button>
+    </div>`;
+}
+
+async function enviarPedido(){
+  const nombre=document.getElementById('f-nombre').value.trim();
+  const tel=document.getElementById('f-tel').value.trim();
+  const local=document.getElementById('f-local').value.trim();
+  if(!nombre||!tel||!local){alert('Por favor completá los campos obligatorios (*)');return;}
+
+  const btn=document.getElementById('btn-enviar');
+  btn.disabled=true;
+  btn.textContent='Enviando...';
+
+  const items = Object.keys(carrito).map(id=>{
+    const p=productos.find(x=>x.id==id);
+    return `${p.nombre} x${carrito[id]} = $${(p.precio*carrito[id]).toLocaleString('es-AR')}`;
+  }).join('\n');
+
+  const total = Object.keys(carrito).reduce((s,id)=>{
+    const p=productos.find(x=>x.id==id);
+    return s+p.precio*carrito[id];
+  },0);
+
+  const payload = {
+    fecha: new Date().toLocaleString('es-AR'),
+    nombre,
+    empresa: document.getElementById('f-empresa').value.trim()||'-',
+    telefono: tel,
+    localidad: local,
+    direccion: document.getElementById('f-dir').value.trim()||'-',
+    notas: document.getElementById('f-notas').value.trim()||'-',
+    detalle: items,
+    total: '$'+total.toLocaleString('es-AR')
+  };
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    carrito={};
+    actualizarUI();
+    document.getElementById('modal-content').innerHTML=`
+      <div class="success-box">
+        <div class="success-icon">✅</div>
+        <h2>¡Pedido recibido!</h2>
+        <p>Gracias <strong>${nombre}</strong>, tu pedido fue registrado correctamente.<br>Te contactaremos a la brevedad al <strong>${tel}</strong>.</p>
+        <button class="checkout-btn" onclick="closeCheckout()" style="max-width:200px;margin:0 auto;display:block">Volver a la tienda</button>
+      </div>`;
+  } catch(e){
+    btn.disabled=false;
+    btn.textContent='Enviar Pedido';
+    alert('Hubo un error al enviar. Intentá de nuevo.');
+  }
+}
+
+renderCatalogo();
+</script>
+</body>
+</html>
