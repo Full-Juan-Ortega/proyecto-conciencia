@@ -321,10 +321,14 @@ async function enviarPedido(){
   };
 
   try {
+    const formData = new FormData();
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
     await fetch(WEBHOOK_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
+      method: 'POST',
+      body: formData
     });
     carrito={};
     actualizarUI();
